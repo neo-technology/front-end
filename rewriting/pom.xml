@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>com.thatdot</groupId>
-    <artifactId>front-end-parent-9.0.1</artifactId>
-    <version>9.0.1</version>
+    <artifactId>front-end-parent-9.1.0</artifactId>
+    <version>9.1.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>rewriting-9.0.1_2.13</artifactId>
+  <artifactId>rewriting-9.1.0_2.13</artifactId>
   <packaging>jar</packaging>
-  <version>9.0.1</version>
+  <version>9.1.0</version>
   <name>openCypher Rewriting</name>
 
   <description>Tree rewriting support, and AST rewriters for the Cypher query language</description>
@@ -53,26 +53,26 @@
 
     <dependency>
       <groupId>com.thatdot</groupId>
-      <artifactId>util-9.0.1_${scala.binary.version}</artifactId>
+      <artifactId>util-9.1.0_${scala.binary.version}</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.thatdot</groupId>
-      <artifactId>test-util-9.0.1_${scala.binary.version}</artifactId>
+      <artifactId>test-util-9.1.0_${scala.binary.version}</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.thatdot</groupId>
-      <artifactId>ast-9.0.1_${scala.binary.version}</artifactId>
+      <artifactId>ast-9.1.0_${scala.binary.version}</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.thatdot</groupId>
-      <artifactId>ast-9.0.1_${scala.binary.version}</artifactId>
+      <artifactId>ast-9.1.0_${scala.binary.version}</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -80,13 +80,13 @@
 
     <dependency>
       <groupId>com.thatdot</groupId>
-      <artifactId>expressions-9.0.1_${scala.binary.version}</artifactId>
+      <artifactId>expressions-9.1.0_${scala.binary.version}</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.thatdot</groupId>
-      <artifactId>opencypher-cypher-ast-factory-9.0.1_${scala.binary.version}</artifactId>
+      <artifactId>opencypher-cypher-ast-factory-9.1.0_${scala.binary.version}</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>

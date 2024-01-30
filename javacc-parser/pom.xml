@@ -3,15 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.thatdot</groupId>
-        <artifactId>front-end-parent-9.0.1</artifactId>
-        <version>9.0.1</version>
+        <artifactId>front-end-parent-9.1.0</artifactId>
+        <version>9.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cypher-javacc-parser-9.0.1</artifactId>
+    <artifactId>cypher-javacc-parser-9.1.0</artifactId>
     <packaging>jar</packaging>
-    <version>9.0.1</version>
+    <version>9.1.0</version>
     <name>openCypher - Cypher JavaCC based parser</name>
 
     <description>Cypher parser using JavaCC</description>
@@ -75,7 +75,7 @@
 
         <dependency>
             <groupId>com.thatdot</groupId>
-            <artifactId>cypher-ast-factory-9.0.1</artifactId>
+            <artifactId>cypher-ast-factory-9.1.0</artifactId>
             <version>${project.version}</version>
         </dependency>
 
