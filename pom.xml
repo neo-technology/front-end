@@ -3,9 +3,9 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.opencypher</groupId>
-  <artifactId>front-end-parent-9.0</artifactId>
-  <version>9.0-SNAPSHOT</version>
+  <groupId>com.thatdot</groupId>
+  <artifactId>front-end-parent-9.0.1</artifactId>
+  <version>9.0.1</version>
   <packaging>pom</packaging>
   <name>openCypher Front End Parent</name>
   <description>Project that builds the openCypher front end modules</description>
@@ -104,6 +104,13 @@
   </dependencies>
 
   <build>
+      <extensions>
+        <extension>
+          <groupId>com.github.seahen</groupId>
+          <artifactId>maven-s3-wagon</artifactId>
+          <version>1.3.3</version>
+        </extension>
+      </extensions>
       <resources>
         <resource>
           <directory>src/main/resources</directory>
@@ -272,7 +279,7 @@
         </executions>
         <dependencies>
           <dependency>
-            <groupId>org.opencypher</groupId>
+            <groupId>com.thatdot</groupId>
             <artifactId>licensing-config</artifactId>
             <version>${project.version}</version>
           </dependency>
@@ -282,6 +289,21 @@
 
     </plugins>
   </build>
+
+<distributionManagement>
+  <site>
+    <id>s3.site</id>
+    <url>s3://com.thatdot.dependencies/site</url>
+  </site>
+  <repository>
+    <id>s3.release</id>
+    <url>s3://com.thatdot.dependencies/release</url>
+  </repository>
+  <snapshotRepository>
+    <id>s3.snapshot</id>
+    <url>s3://com.thatdot.dependencies/snapshot</url>
+  </snapshotRepository>
+</distributionManagement>
 
   <profiles>
     <profile>
