@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.thatdot</groupId>
-  <artifactId>front-end-parent-9.1.0</artifactId>
-  <version>9.1.0</version>
+  <artifactId>front-end-parent-9.2.0</artifactId>
+  <version>9.2.0</version>
   <packaging>pom</packaging>
   <name>openCypher Front End Parent</name>
   <description>Project that builds the openCypher front end modules</description>

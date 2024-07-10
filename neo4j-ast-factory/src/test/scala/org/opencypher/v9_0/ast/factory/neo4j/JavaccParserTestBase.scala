@@ -117,7 +117,9 @@ trait JavaccParserTestBase[T, J] extends CypherFunSuite {
       }
       ResultCheck(Seq(converted), input)
 
-    case Failure(exception) => fail(generateErrorMessage(input, exception))
+    case Failure(exception) =>
+      println(exception.getMessage)
+      fail(generateErrorMessage(input, exception))
   }
 
   private def generateErrorMessage(input: String, exception: Throwable): String = {

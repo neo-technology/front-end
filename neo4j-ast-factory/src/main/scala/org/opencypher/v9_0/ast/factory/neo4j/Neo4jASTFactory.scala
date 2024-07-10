@@ -16,293 +16,7 @@
 package org.opencypher.v9_0.ast.factory.neo4j
 
 import org.opencypher.v9_0.ast
-import org.opencypher.v9_0.ast.AccessDatabaseAction
-import org.opencypher.v9_0.ast.ActionResource
-import org.opencypher.v9_0.ast.AdministrationAction
-import org.opencypher.v9_0.ast.AdministrationCommand
-import org.opencypher.v9_0.ast.AliasedReturnItem
-import org.opencypher.v9_0.ast.AllAliasManagementActions
-import org.opencypher.v9_0.ast.AllConstraintActions
-import org.opencypher.v9_0.ast.AllConstraints
-import org.opencypher.v9_0.ast.AllDatabaseAction
-import org.opencypher.v9_0.ast.AllDatabaseManagementActions
-import org.opencypher.v9_0.ast.AllDatabasesQualifier
-import org.opencypher.v9_0.ast.AllDatabasesScope
-import org.opencypher.v9_0.ast.AllDbmsAction
-import org.opencypher.v9_0.ast.AllFunctions
-import org.opencypher.v9_0.ast.AllGraphAction
-import org.opencypher.v9_0.ast.AllGraphsScope
-import org.opencypher.v9_0.ast.AllIndexActions
-import org.opencypher.v9_0.ast.AllIndexes
-import org.opencypher.v9_0.ast.AllLabelResource
-import org.opencypher.v9_0.ast.AllPrivilegeActions
-import org.opencypher.v9_0.ast.AllPropertyResource
-import org.opencypher.v9_0.ast.AllQualifier
-import org.opencypher.v9_0.ast.AllRoleActions
-import org.opencypher.v9_0.ast.AllTokenActions
-import org.opencypher.v9_0.ast.AllTransactionActions
-import org.opencypher.v9_0.ast.AllUserActions
-import org.opencypher.v9_0.ast.AlterAliasAction
-import org.opencypher.v9_0.ast.AlterDatabase
-import org.opencypher.v9_0.ast.AlterDatabaseAction
-import org.opencypher.v9_0.ast.AlterLocalDatabaseAlias
-import org.opencypher.v9_0.ast.AlterRemoteDatabaseAlias
-import org.opencypher.v9_0.ast.AlterUser
-import org.opencypher.v9_0.ast.AlterUserAction
-import org.opencypher.v9_0.ast.AscSortItem
-import org.opencypher.v9_0.ast.AssignPrivilegeAction
-import org.opencypher.v9_0.ast.AssignRoleAction
-import org.opencypher.v9_0.ast.BtreeIndexes
-import org.opencypher.v9_0.ast.BuiltInFunctions
-import org.opencypher.v9_0.ast.Clause
-import org.opencypher.v9_0.ast.CommandResultItem
-import org.opencypher.v9_0.ast.CompositeDatabaseManagementActions
-import org.opencypher.v9_0.ast.ConstraintVersion0
-import org.opencypher.v9_0.ast.ConstraintVersion1
-import org.opencypher.v9_0.ast.ConstraintVersion2
-import org.opencypher.v9_0.ast.Create
-import org.opencypher.v9_0.ast.CreateAliasAction
-import org.opencypher.v9_0.ast.CreateBtreeNodeIndex
-import org.opencypher.v9_0.ast.CreateBtreeRelationshipIndex
-import org.opencypher.v9_0.ast.CreateCompositeDatabase
-import org.opencypher.v9_0.ast.CreateCompositeDatabaseAction
-import org.opencypher.v9_0.ast.CreateConstraintAction
-import org.opencypher.v9_0.ast.CreateDatabase
-import org.opencypher.v9_0.ast.CreateDatabaseAction
-import org.opencypher.v9_0.ast.CreateElementAction
-import org.opencypher.v9_0.ast.CreateFulltextNodeIndex
-import org.opencypher.v9_0.ast.CreateFulltextRelationshipIndex
-import org.opencypher.v9_0.ast.CreateIndex
-import org.opencypher.v9_0.ast.CreateIndexAction
-import org.opencypher.v9_0.ast.CreateIndexOldSyntax
-import org.opencypher.v9_0.ast.CreateLocalDatabaseAlias
-import org.opencypher.v9_0.ast.CreateLookupIndex
-import org.opencypher.v9_0.ast.CreateNodeLabelAction
-import org.opencypher.v9_0.ast.CreatePointNodeIndex
-import org.opencypher.v9_0.ast.CreatePointRelationshipIndex
-import org.opencypher.v9_0.ast.CreatePropertyKeyAction
-import org.opencypher.v9_0.ast.CreateRangeNodeIndex
-import org.opencypher.v9_0.ast.CreateRangeRelationshipIndex
-import org.opencypher.v9_0.ast.CreateRelationshipTypeAction
-import org.opencypher.v9_0.ast.CreateRemoteDatabaseAlias
-import org.opencypher.v9_0.ast.CreateRole
-import org.opencypher.v9_0.ast.CreateRoleAction
-import org.opencypher.v9_0.ast.CreateTextNodeIndex
-import org.opencypher.v9_0.ast.CreateTextRelationshipIndex
-import org.opencypher.v9_0.ast.CreateUser
-import org.opencypher.v9_0.ast.CreateUserAction
-import org.opencypher.v9_0.ast.CurrentUser
-import org.opencypher.v9_0.ast.DatabaseAction
-import org.opencypher.v9_0.ast.DatabaseName
-import org.opencypher.v9_0.ast.DatabasePrivilege
-import org.opencypher.v9_0.ast.DatabaseResource
-import org.opencypher.v9_0.ast.DatabaseScope
-import org.opencypher.v9_0.ast.DbmsAction
-import org.opencypher.v9_0.ast.DbmsPrivilege
-import org.opencypher.v9_0.ast.DeallocateServers
-import org.opencypher.v9_0.ast.DefaultDatabaseScope
-import org.opencypher.v9_0.ast.DefaultGraphScope
-import org.opencypher.v9_0.ast.Delete
-import org.opencypher.v9_0.ast.DeleteElementAction
-import org.opencypher.v9_0.ast.DenyPrivilege
-import org.opencypher.v9_0.ast.DescSortItem
-import org.opencypher.v9_0.ast.DestroyData
-import org.opencypher.v9_0.ast.DropAliasAction
-import org.opencypher.v9_0.ast.DropCompositeDatabaseAction
-import org.opencypher.v9_0.ast.DropConstraintAction
-import org.opencypher.v9_0.ast.DropConstraintOnName
-import org.opencypher.v9_0.ast.DropDatabase
-import org.opencypher.v9_0.ast.DropDatabaseAction
-import org.opencypher.v9_0.ast.DropDatabaseAdditionalAction
-import org.opencypher.v9_0.ast.DropDatabaseAlias
-import org.opencypher.v9_0.ast.DropIndex
-import org.opencypher.v9_0.ast.DropIndexAction
-import org.opencypher.v9_0.ast.DropIndexOnName
-import org.opencypher.v9_0.ast.DropNodeKeyConstraint
-import org.opencypher.v9_0.ast.DropNodePropertyExistenceConstraint
-import org.opencypher.v9_0.ast.DropRelationshipPropertyExistenceConstraint
-import org.opencypher.v9_0.ast.DropRole
-import org.opencypher.v9_0.ast.DropRoleAction
-import org.opencypher.v9_0.ast.DropServer
-import org.opencypher.v9_0.ast.DropUniquePropertyConstraint
-import org.opencypher.v9_0.ast.DropUser
-import org.opencypher.v9_0.ast.DropUserAction
-import org.opencypher.v9_0.ast.DumpData
-import org.opencypher.v9_0.ast.ElementQualifier
-import org.opencypher.v9_0.ast.ElementsAllQualifier
-import org.opencypher.v9_0.ast.EnableServer
-import org.opencypher.v9_0.ast.ExecuteAdminProcedureAction
-import org.opencypher.v9_0.ast.ExecuteBoostedFunctionAction
-import org.opencypher.v9_0.ast.ExecuteBoostedProcedureAction
-import org.opencypher.v9_0.ast.ExecuteFunctionAction
-import org.opencypher.v9_0.ast.ExecuteProcedureAction
-import org.opencypher.v9_0.ast.ExistsConstraints
-import org.opencypher.v9_0.ast.Foreach
-import org.opencypher.v9_0.ast.FulltextIndexes
-import org.opencypher.v9_0.ast.FunctionQualifier
-import org.opencypher.v9_0.ast.GrantPrivilege
-import org.opencypher.v9_0.ast.GrantRolesToUsers
-import org.opencypher.v9_0.ast.GraphAction
-import org.opencypher.v9_0.ast.GraphPrivilege
-import org.opencypher.v9_0.ast.GraphScope
-import org.opencypher.v9_0.ast.HomeDatabaseScope
-import org.opencypher.v9_0.ast.HomeGraphScope
-import org.opencypher.v9_0.ast.IfExistsDo
-import org.opencypher.v9_0.ast.IfExistsDoNothing
-import org.opencypher.v9_0.ast.IfExistsInvalidSyntax
-import org.opencypher.v9_0.ast.IfExistsReplace
-import org.opencypher.v9_0.ast.IfExistsThrowError
-import org.opencypher.v9_0.ast.ImpersonateUserAction
-import org.opencypher.v9_0.ast.IndefiniteWait
-import org.opencypher.v9_0.ast.LabelAllQualifier
-import org.opencypher.v9_0.ast.LabelQualifier
-import org.opencypher.v9_0.ast.LabelsResource
-import org.opencypher.v9_0.ast.Limit
-import org.opencypher.v9_0.ast.LoadCSV
-import org.opencypher.v9_0.ast.LookupIndexes
-import org.opencypher.v9_0.ast.Match
-import org.opencypher.v9_0.ast.MatchAction
-import org.opencypher.v9_0.ast.Merge
-import org.opencypher.v9_0.ast.MergeAdminAction
-import org.opencypher.v9_0.ast.NamedDatabaseScope
-import org.opencypher.v9_0.ast.NamedGraphScope
-import org.opencypher.v9_0.ast.NamespacedName
-import org.opencypher.v9_0.ast.NoOptions
-import org.opencypher.v9_0.ast.NoResource
-import org.opencypher.v9_0.ast.NoWait
-import org.opencypher.v9_0.ast.NodeExistsConstraints
-import org.opencypher.v9_0.ast.NodeKeyConstraints
-import org.opencypher.v9_0.ast.OnCreate
-import org.opencypher.v9_0.ast.OnMatch
-import org.opencypher.v9_0.ast.OptionsMap
-import org.opencypher.v9_0.ast.OptionsParam
-import org.opencypher.v9_0.ast.OrderBy
-import org.opencypher.v9_0.ast.ParameterName
-import org.opencypher.v9_0.ast.ParsedAsYield
-import org.opencypher.v9_0.ast.PointIndexes
-import org.opencypher.v9_0.ast.PrivilegeQualifier
-import org.opencypher.v9_0.ast.PrivilegeType
-import org.opencypher.v9_0.ast.ProcedureQualifier
-import org.opencypher.v9_0.ast.ProcedureResult
-import org.opencypher.v9_0.ast.ProcedureResultItem
-import org.opencypher.v9_0.ast.PropertiesResource
-import org.opencypher.v9_0.ast.Query
-import org.opencypher.v9_0.ast.RangeIndexes
-import org.opencypher.v9_0.ast.ReadAction
-import org.opencypher.v9_0.ast.ReadAdministrationCommand
-import org.opencypher.v9_0.ast.ReadOnlyAccess
-import org.opencypher.v9_0.ast.ReadWriteAccess
-import org.opencypher.v9_0.ast.RelExistsConstraints
-import org.opencypher.v9_0.ast.RelationshipAllQualifier
-import org.opencypher.v9_0.ast.RelationshipQualifier
-import org.opencypher.v9_0.ast.Remove
-import org.opencypher.v9_0.ast.RemoveHomeDatabaseAction
-import org.opencypher.v9_0.ast.RemoveItem
-import org.opencypher.v9_0.ast.RemoveLabelAction
-import org.opencypher.v9_0.ast.RemoveLabelItem
-import org.opencypher.v9_0.ast.RemovePrivilegeAction
-import org.opencypher.v9_0.ast.RemovePropertyItem
-import org.opencypher.v9_0.ast.RemoveRoleAction
-import org.opencypher.v9_0.ast.RemovedSyntax
-import org.opencypher.v9_0.ast.RenameRole
-import org.opencypher.v9_0.ast.RenameRoleAction
-import org.opencypher.v9_0.ast.RenameServer
-import org.opencypher.v9_0.ast.RenameUser
-import org.opencypher.v9_0.ast.RenameUserAction
-import org.opencypher.v9_0.ast.Return
-import org.opencypher.v9_0.ast.ReturnItem
-import org.opencypher.v9_0.ast.ReturnItems
-import org.opencypher.v9_0.ast.RevokeBothType
-import org.opencypher.v9_0.ast.RevokeDenyType
-import org.opencypher.v9_0.ast.RevokeGrantType
-import org.opencypher.v9_0.ast.RevokePrivilege
-import org.opencypher.v9_0.ast.RevokeRolesFromUsers
-import org.opencypher.v9_0.ast.SchemaCommand
-import org.opencypher.v9_0.ast.SeekOnly
-import org.opencypher.v9_0.ast.SeekOrScan
-import org.opencypher.v9_0.ast.ServerManagementAction
-import org.opencypher.v9_0.ast.SetClause
-import org.opencypher.v9_0.ast.SetDatabaseAccessAction
-import org.opencypher.v9_0.ast.SetExactPropertiesFromMapItem
-import org.opencypher.v9_0.ast.SetHomeDatabaseAction
-import org.opencypher.v9_0.ast.SetIncludingPropertiesFromMapItem
-import org.opencypher.v9_0.ast.SetItem
-import org.opencypher.v9_0.ast.SetLabelAction
-import org.opencypher.v9_0.ast.SetLabelItem
-import org.opencypher.v9_0.ast.SetOwnPassword
-import org.opencypher.v9_0.ast.SetPasswordsAction
-import org.opencypher.v9_0.ast.SetPropertyAction
-import org.opencypher.v9_0.ast.SetPropertyItem
-import org.opencypher.v9_0.ast.SetUserHomeDatabaseAction
-import org.opencypher.v9_0.ast.SetUserStatusAction
-import org.opencypher.v9_0.ast.ShowAliasAction
-import org.opencypher.v9_0.ast.ShowAliases
-import org.opencypher.v9_0.ast.ShowAllPrivileges
-import org.opencypher.v9_0.ast.ShowConstraintAction
-import org.opencypher.v9_0.ast.ShowConstraintType
-import org.opencypher.v9_0.ast.ShowConstraintsClause
-import org.opencypher.v9_0.ast.ShowCurrentUser
-import org.opencypher.v9_0.ast.ShowDatabase
-import org.opencypher.v9_0.ast.ShowFunctionsClause
-import org.opencypher.v9_0.ast.ShowIndexAction
-import org.opencypher.v9_0.ast.ShowIndexesClause
-import org.opencypher.v9_0.ast.ShowPrivilegeAction
-import org.opencypher.v9_0.ast.ShowPrivilegeCommands
-import org.opencypher.v9_0.ast.ShowPrivilegeScope
-import org.opencypher.v9_0.ast.ShowPrivileges
-import org.opencypher.v9_0.ast.ShowProceduresClause
-import org.opencypher.v9_0.ast.ShowRoleAction
-import org.opencypher.v9_0.ast.ShowRoles
-import org.opencypher.v9_0.ast.ShowRolesPrivileges
-import org.opencypher.v9_0.ast.ShowServerAction
-import org.opencypher.v9_0.ast.ShowServers
-import org.opencypher.v9_0.ast.ShowTransactionAction
-import org.opencypher.v9_0.ast.ShowTransactionsClause
-import org.opencypher.v9_0.ast.ShowUserAction
-import org.opencypher.v9_0.ast.ShowUserPrivileges
-import org.opencypher.v9_0.ast.ShowUsers
-import org.opencypher.v9_0.ast.ShowUsersPrivileges
-import org.opencypher.v9_0.ast.SingleQuery
-import org.opencypher.v9_0.ast.Skip
-import org.opencypher.v9_0.ast.SortItem
-import org.opencypher.v9_0.ast.StartDatabase
-import org.opencypher.v9_0.ast.StartDatabaseAction
-import org.opencypher.v9_0.ast.Statement
-import org.opencypher.v9_0.ast.StatementWithGraph
-import org.opencypher.v9_0.ast.StopDatabase
-import org.opencypher.v9_0.ast.StopDatabaseAction
-import org.opencypher.v9_0.ast.SubqueryCall
-import org.opencypher.v9_0.ast.TerminateTransactionAction
-import org.opencypher.v9_0.ast.TerminateTransactionsClause
-import org.opencypher.v9_0.ast.TextIndexes
-import org.opencypher.v9_0.ast.TimeoutAfter
-import org.opencypher.v9_0.ast.TraverseAction
-import org.opencypher.v9_0.ast.UnaliasedReturnItem
-import org.opencypher.v9_0.ast.UnionAll
-import org.opencypher.v9_0.ast.UnionDistinct
-import org.opencypher.v9_0.ast.UniqueConstraints
-import org.opencypher.v9_0.ast.UnresolvedCall
-import org.opencypher.v9_0.ast.Unwind
-import org.opencypher.v9_0.ast.UseGraph
-import org.opencypher.v9_0.ast.User
-import org.opencypher.v9_0.ast.UserAllQualifier
-import org.opencypher.v9_0.ast.UserDefinedFunctions
-import org.opencypher.v9_0.ast.UserOptions
-import org.opencypher.v9_0.ast.UserQualifier
-import org.opencypher.v9_0.ast.UsingAnyIndexType
-import org.opencypher.v9_0.ast.UsingHint
-import org.opencypher.v9_0.ast.UsingIndexHintType
-import org.opencypher.v9_0.ast.UsingJoinHint
-import org.opencypher.v9_0.ast.UsingPointIndexType
-import org.opencypher.v9_0.ast.UsingRangeIndexType
-import org.opencypher.v9_0.ast.UsingScanHint
-import org.opencypher.v9_0.ast.UsingTextIndexType
-import org.opencypher.v9_0.ast.ValidSyntax
-import org.opencypher.v9_0.ast.WaitUntilComplete
-import org.opencypher.v9_0.ast.Where
-import org.opencypher.v9_0.ast.With
-import org.opencypher.v9_0.ast.WriteAction
-import org.opencypher.v9_0.ast.Yield
+import org.opencypher.v9_0.ast.{AccessDatabaseAction, ActionResource, AdministrationAction, AdministrationCommand, AliasedReturnItem, AllAliasManagementActions, AllConstraintActions, AllConstraints, AllDatabaseAction, AllDatabaseManagementActions, AllDatabasesQualifier, AllDatabasesScope, AllDbmsAction, AllFunctions, AllGraphAction, AllGraphsScope, AllIndexActions, AllIndexes, AllLabelResource, AllPrivilegeActions, AllPropertyResource, AllQualifier, AllRoleActions, AllTokenActions, AllTransactionActions, AllUserActions, AlterAliasAction, AlterDatabase, AlterDatabaseAction, AlterLocalDatabaseAlias, AlterRemoteDatabaseAlias, AlterUser, AlterUserAction, AscSortItem, AssignPrivilegeAction, AssignRoleAction, BtreeIndexes, BuiltInFunctions, Clause, CommandResultItem, CompositeDatabaseManagementActions, ConstraintVersion0, ConstraintVersion1, ConstraintVersion2, Create, CreateAliasAction, CreateBtreeNodeIndex, CreateBtreeRelationshipIndex, CreateCompositeDatabase, CreateCompositeDatabaseAction, CreateConstraintAction, CreateDatabase, CreateDatabaseAction, CreateElementAction, CreateFulltextNodeIndex, CreateFulltextRelationshipIndex, CreateIndex, CreateIndexAction, CreateIndexOldSyntax, CreateLocalDatabaseAlias, CreateLookupIndex, CreateNodeLabelAction, CreatePointNodeIndex, CreatePointRelationshipIndex, CreatePropertyKeyAction, CreateRangeNodeIndex, CreateRangeRelationshipIndex, CreateRelationshipTypeAction, CreateRemoteDatabaseAlias, CreateRole, CreateRoleAction, CreateTextNodeIndex, CreateTextRelationshipIndex, CreateUser, CreateUserAction, CurrentUser, DatabaseAction, DatabaseName, DatabasePrivilege, DatabaseResource, DatabaseScope, DbmsAction, DbmsPrivilege, DeallocateServers, DefaultDatabaseScope, DefaultGraphScope, Delete, DeleteElementAction, DenyPrivilege, DescSortItem, DestroyData, DropAliasAction, DropCompositeDatabaseAction, DropConstraintAction, DropConstraintOnName, DropDatabase, DropDatabaseAction, DropDatabaseAdditionalAction, DropDatabaseAlias, DropIndex, DropIndexAction, DropIndexOnName, DropNodeKeyConstraint, DropNodePropertyExistenceConstraint, DropRelationshipPropertyExistenceConstraint, DropRole, DropRoleAction, DropServer, DropUniquePropertyConstraint, DropUser, DropUserAction, DumpData, ElementQualifier, ElementsAllQualifier, EnableServer, ExecuteAdminProcedureAction, ExecuteBoostedFunctionAction, ExecuteBoostedProcedureAction, ExecuteFunctionAction, ExecuteProcedureAction, ExistsConstraints, Foreach, FulltextIndexes, FunctionQualifier, GrantPrivilege, GrantRolesToUsers, GraphAction, GraphPrivilege, GraphScope, HomeDatabaseScope, HomeGraphScope, IfExistsDo, IfExistsDoNothing, IfExistsInvalidSyntax, IfExistsReplace, IfExistsThrowError, ImpersonateUserAction, IndefiniteWait, Initialization, LabelAllQualifier, LabelQualifier, LabelsResource, Limit, LoadCSV, LookupIndexes, Match, MatchAction, Merge, MergeAdminAction, NamedDatabaseScope, NamedGraphScope, NamespacedName, NoOptions, NoResource, NoWait, NodeExistsConstraints, NodeKeyConstraints, OnCreate, OnMatch, OptionsMap, OptionsParam, OrderBy, ParameterName, ParsedAsYield, PointIndexes, PrivilegeQualifier, PrivilegeType, ProcedureQualifier, ProcedureResult, ProcedureResultItem, PropertiesResource, Query, RangeIndexes, ReadAction, ReadAdministrationCommand, ReadOnlyAccess, ReadWriteAccess, RelExistsConstraints, RelationshipAllQualifier, RelationshipQualifier, Remove, RemoveHomeDatabaseAction, RemoveItem, RemoveLabelAction, RemoveLabelItem, RemovePrivilegeAction, RemovePropertyItem, RemoveRoleAction, RemovedSyntax, RenameRole, RenameRoleAction, RenameServer, RenameUser, RenameUserAction, Return, ReturnItem, ReturnItems, RevokeBothType, RevokeDenyType, RevokeGrantType, RevokePrivilege, RevokeRolesFromUsers, SchemaCommand, SeekOnly, SeekOrScan, ServerManagementAction, SetClause, SetDatabaseAccessAction, SetExactPropertiesFromMapItem, SetHomeDatabaseAction, SetIncludingPropertiesFromMapItem, SetItem, SetLabelAction, SetLabelItem, SetOwnPassword, SetPasswordsAction, SetPropertyAction, SetPropertyItem, SetUserHomeDatabaseAction, SetUserStatusAction, ShowAliasAction, ShowAliases, ShowAllPrivileges, ShowConstraintAction, ShowConstraintType, ShowConstraintsClause, ShowCurrentUser, ShowDatabase, ShowFunctionsClause, ShowIndexAction, ShowIndexesClause, ShowPrivilegeAction, ShowPrivilegeCommands, ShowPrivilegeScope, ShowPrivileges, ShowProceduresClause, ShowRoleAction, ShowRoles, ShowRolesPrivileges, ShowServerAction, ShowServers, ShowTransactionAction, ShowTransactionsClause, ShowUserAction, ShowUserPrivileges, ShowUsers, ShowUsersPrivileges, SingleQuery, Skip, SortItem, StartDatabase, StartDatabaseAction, Statement, StatementWithGraph, StopDatabase, StopDatabaseAction, SubqueryCall, TerminateTransactionAction, TerminateTransactionsClause, TextIndexes, TimeoutAfter, TraverseAction, UnaliasedReturnItem, UnionAll, UnionDistinct, UniqueConstraints, UnresolvedCall, Unwind, UseGraph, User, UserAllQualifier, UserDefinedFunctions, UserOptions, UserQualifier, UsingAnyIndexType, UsingHint, UsingIndexHintType, UsingJoinHint, UsingPointIndexType, UsingRangeIndexType, UsingScanHint, UsingTextIndexType, ValidSyntax, WaitUntilComplete, Where, With, WriteAction, Yield}
 import org.opencypher.v9_0.ast.factory.ASTExceptionFactory
 import org.opencypher.v9_0.ast.factory.ASTFactory
 import org.opencypher.v9_0.ast.factory.ASTFactory.MergeActionType
@@ -434,7 +148,6 @@ import java.lang
 import java.nio.charset.StandardCharsets
 import java.util
 import java.util.stream.Collectors
-
 import scala.jdk.CollectionConverters.IteratorHasAsScala
 import scala.jdk.CollectionConverters.ListHasAsScala
 import scala.jdk.CollectionConverters.MapHasAsScala
@@ -504,7 +217,8 @@ class Neo4jASTFactory(query: String)
       EntityType,
       GraphPatternQuantifier,
       PatternAtom,
-      DatabaseName
+      DatabaseName,
+      Initialization
     ] {
 
   override def newSingleQuery(p: InputPosition, clauses: util.List[Clause]): Query = {
@@ -725,12 +439,8 @@ class Neo4jASTFactory(query: String)
     SubqueryCall.InTransactionsParameters(Option(batchSize))(p)
   }
 
-  override def subqueryClause(
-    p: InputPosition,
-    subquery: Query,
-    inTransactions: SubqueryCall.InTransactionsParameters
-  ): Clause =
-    SubqueryCall(subquery.part, Option(inTransactions))(p)
+  override def subqueryClause(p: InputPosition, initializations: util.List[Initialization], test: Expression, subquery: Query, inTransactions: SubqueryCall.InTransactionsParameters): Clause =
+    SubqueryCall(subquery.part, if(initializations == null) Nil else initializations.asScala.toList, test, Option(inTransactions))(p)
 
   // PATTERNS
 
@@ -2420,4 +2130,7 @@ class Neo4jASTFactory(query: String)
   override def relationshipType(): EntityType = EntityType.RELATIONSHIP
 
   override def nodeOrRelationshipType(): EntityType = EntityType.NODE_OR_RELATIONSHIP
+
+  override def initialization(pos: InputPosition, variable: Variable, expression: Expression): Initialization =
+    Initialization(variable, expression)
 }

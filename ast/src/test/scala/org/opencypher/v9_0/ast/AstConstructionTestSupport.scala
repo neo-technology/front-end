@@ -570,14 +570,14 @@ trait AstConstructionTestSupport extends CypherTestSupport {
   def unionDistinct(qs: SingleQuery*): QueryPart =
     qs.reduceLeft[QueryPart](UnionDistinct(_, _)(pos))
 
-  def subqueryCall(cs: Clause*): SubqueryCall =
-    SubqueryCall(SingleQuery(cs)(pos), None)(pos)
+  def subqueryCall(initializations: List[Initialization], test: Expression, cs: Clause*): SubqueryCall =
+    SubqueryCall(SingleQuery(cs)(pos), initializations, test, None)(pos)
 
-  def subqueryCall(part: QueryPart): SubqueryCall =
-    SubqueryCall(part, None)(pos)
+  def subqueryCall(part: QueryPart, initializations: List[Initialization] = Nil, test: Expression = null): SubqueryCall =
+    SubqueryCall(part, initializations, test, None)(pos)
 
   def subqueryCallInTransactions(cs: Clause*): SubqueryCall = {
-    val call = subqueryCall(cs: _*)
+    val call = subqueryCall(Nil, null, cs: _*)
     call.copy(inTransactionsParameters = Some(inTransactionsParameters(None)))(pos)
   }
 
@@ -585,7 +585,7 @@ trait AstConstructionTestSupport extends CypherTestSupport {
     inTransactionParameters: SubqueryCall.InTransactionsParameters,
     cs: Clause*
   ): SubqueryCall = {
-    val call = subqueryCall(cs: _*)
+    val call = subqueryCall(Nil, null, cs: _*)
     call.copy(inTransactionsParameters = Some(inTransactionParameters))(pos)
   }
 

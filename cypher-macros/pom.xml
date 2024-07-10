@@ -3,15 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.thatdot</groupId>
-        <artifactId>front-end-parent-9.1.0</artifactId>
-        <version>9.1.0</version>
+        <artifactId>front-end-parent-9.2.0</artifactId>
+        <version>9.2.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cypher-macros-9.1.0_2.13</artifactId>
+    <artifactId>cypher-macros-9.2.0_2.13</artifactId>
     <packaging>jar</packaging>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
     <name>openCypher Macros</name>
 
     <description>Cypher macros</description>
@@ -56,7 +56,7 @@
         <!-- neo4j -->
         <dependency>
             <groupId>com.thatdot</groupId>
-            <artifactId>util-9.1.0_${scala.binary.version}</artifactId>
+            <artifactId>util-9.2.0_${scala.binary.version}</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -84,7 +84,7 @@
 
         <dependency>
             <groupId>com.thatdot</groupId>
-            <artifactId>test-util-9.1.0_${scala.binary.version}</artifactId>
+            <artifactId>test-util-9.2.0_${scala.binary.version}</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

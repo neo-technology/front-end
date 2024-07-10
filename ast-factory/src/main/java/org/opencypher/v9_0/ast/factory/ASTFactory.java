@@ -73,7 +73,8 @@ public interface ASTFactory<
                 ENTITY_TYPE,
                 PATH_PATTERN_QUANTIFIER,
                 PATTERN_ATOM,
-                DATABASE_NAME>
+                DATABASE_NAME,
+                INITIALIZATION>
         extends ASTExpressionFactory<
                 EXPRESSION,
                 LABEL_EXPRESSION,
@@ -171,6 +172,8 @@ public interface ASTFactory<
 
     CLAUSE unwindClause(POS p, EXPRESSION e, VARIABLE v);
 
+    INITIALIZATION initialization(POS p, VARIABLE v, EXPRESSION e);
+
     enum MergeActionType {
         OnCreate,
         OnMatch
@@ -248,7 +251,7 @@ public interface ASTFactory<
 
     CLAUSE foreachClause(POS p, VARIABLE v, EXPRESSION list, List<CLAUSE> clauses);
 
-    CLAUSE subqueryClause(POS p, QUERY subquery, SUBQUERY_IN_TRANSACTIONS_PARAMETERS inTransactions);
+    CLAUSE subqueryClause(POS p, List<INITIALIZATION> setItems, EXPRESSION test, QUERY subquery, SUBQUERY_IN_TRANSACTIONS_PARAMETERS inTransactions);
 
     SUBQUERY_IN_TRANSACTIONS_PARAMETERS subqueryInTransactionsParams(POS p, EXPRESSION batchSize);
 

@@ -103,7 +103,8 @@ public class Cypher<STATEMENT,
                     ENTITY_TYPE,
                     PATTERN_QUANTIFIER,
                     PATTERN_ATOM,
-                    DATABASE_NAME> {
+                    DATABASE_NAME,
+                    INITIALIZATION> {
 
     ASTExceptionFactory exceptionFactory;
     ASTFactory<STATEMENT,
@@ -146,7 +147,8 @@ public class Cypher<STATEMENT,
                ENTITY_TYPE,
                PATTERN_QUANTIFIER,
                PATTERN_ATOM,
-               DATABASE_NAME> astFactory;
+               DATABASE_NAME,
+               INITIALIZATION> astFactory;
     // to distinguish a bar that follows a label expression from the or-operator as part of a label expression, this stack keeps track of the current context
     Stack<ExpectBar> labelExpressionStack = new Stack<>();
 
@@ -190,7 +192,8 @@ public class Cypher<STATEMENT,
                              ENTITY_TYPE,
                              PATTERN_QUANTIFIER,
                              PATTERN_ATOM,
-                             DATABASE_NAME> astFactory,
+                             DATABASE_NAME,
+                             INITIALIZATION> astFactory,
                   ASTExceptionFactory exceptionFactory,
                   CharStream stream) {
         this(stream);
@@ -491,6 +494,7 @@ TOKEN [IGNORE_CASE] :
     | < RBRACKET: "]" >
     | < RCURLY: "}" >
     | < READ: "READ" >
+    | < RECURSIVELY : "RECURSIVELY" >
     | < REDUCE: "REDUCE" >
     | < RENAME: "RENAME" >
     | < REGEQ: "=~" >
@@ -1587,6 +1591,7 @@ CLAUSE Clause() :
         | x=MergeClause()
         | x=WithClause()
         | x=UnwindClause()
+        | LOOKAHEAD(2) x=RecursiveSubqueryClause()
         | LOOKAHEAD(2) x=CallClause() // because subqueries also start with CALL
         | x=SubqueryClause()
         | x=LoadCSVClause()
@@ -2066,7 +2071,35 @@ CLAUSE SubqueryClause() :
     <RCURLY>
     ( inTransactionsParams = SubqueryInTransactionsParameters() )?
     {
-        return astFactory.subqueryClause( pos( t ), q, inTransactionsParams );
+        return astFactory.subqueryClause( pos( t ), null, null, q, inTransactionsParams );
+    }
+}
+
+CLAUSE RecursiveSubqueryClause() :
+{
+    Token t;
+    QUERY q;
+    VARIABLE lhs;
+    EXPRESSION rhs;
+    List<INITIALIZATION> initializations = new ArrayList<>();
+    EXPRESSION test;
+    SUBQUERY_IN_TRANSACTIONS_PARAMETERS inTransactionsParams = null;
+}
+{
+    t=<CALL> <RECURSIVELY>
+    <LPAREN>
+    lhs=Variable() <EQ> rhs=Expression() { initializations.add(astFactory.initialization(pos(t), lhs, rhs)); }
+    ( "," lhs=Variable() <EQ> rhs=Expression() { initializations.add(astFactory.initialization(pos(t), lhs, rhs )); } )*
+    <RPAREN>
+    <LPAREN>
+        test=Expression()
+    <RPAREN>
+    <LCURLY>
+        q=RegularQuery()
+    <RCURLY>
+    ( inTransactionsParams = SubqueryInTransactionsParameters() )?
+    {
+        return astFactory.subqueryClause( pos( t ), initializations, test, q, inTransactionsParams );
     }
 }
 
@@ -5916,6 +5949,7 @@ Token UnescapedSymbolicNameString() :
         | t=<PROPERTY>
         | t=<RANGE>
         | t=<READ>
+        | t=<RECURSIVELY>
         | t=<REDUCE>
         | t=<REL>
         | t=<RELATIONSHIP>

@@ -23,7 +23,7 @@ import org.opencypher.v9_0.util.symbols.CTAny
 
 class CypherTransactionsParserTest extends JavaccParserAstTestBase[Clause] with VerifyAstPositionTestSupport {
 
-  implicit private val parser: JavaccRule[Clause] = JavaccRule.SubqueryClause
+  implicit private val parser: JavaccRule[Clause] = JavaccRule.Clause
 
   test("CALL { CREATE (n) } IN TRANSACTIONS") {
     val expected =
@@ -34,6 +34,8 @@ class CypherTransactionsParserTest extends JavaccParserAstTestBase[Clause] with 
             (1, 8, 7)
           ))
         )(defaultPos),
+        Nil,
+        null,
         Some(InTransactionsParameters(None)((1, 21, 20)))
       )(defaultPos)
 
